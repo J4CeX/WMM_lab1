@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import time
 
 
-def excercise_two():
+def excercise_two_b():
     # Dobór wartości N - od 2^10 do 2^21
     l_values = np.arange(10, 22)
     n_sizes = 2**l_values
