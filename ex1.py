@@ -19,7 +19,7 @@ faza = np.angle(Xk)
 energia_czas = np.sum(s**2)
 energia_fouriera = np.sum(modul**2) / N
 
-print(f"--- Weryfikacja Twierdzenia Parsevala ---")
+print(f"Weryfikacja Twierdzenia Parsevala")
 print(f"Suma kwadratów w dziedzinie czasu: {energia_czas:.4f}")
 print(f"Suma kwadratów w dziedzinie częstotliwości (znormalizowana): {energia_fouriera:.4f}")
 print(f"Różnica: {abs(energia_czas - energia_fouriera)}")
@@ -53,4 +53,5 @@ plt.ylabel('Faza [rad]')
 plt.grid(True)
 
 plt.tight_layout()
+plt.savefig('1a fft_analysis.png', dpi=300) # Zapisz wykres do pliku
 plt.show()
