@@ -40,5 +40,5 @@ plt.ylabel('Czas obliczeń [s]')
 plt.title('Złożoność obliczeniowa FFT w funkcji liczby próbek')
 plt.legend()
 plt.grid(True, which="both", ls="-", alpha=0.5)
-plt.savefig('1b fft_complexity.png', dpi=300) # Zapisz wykres do pliku
+plt.savefig('1b fft_complexity.png', dpi=300)
 plt.show()
