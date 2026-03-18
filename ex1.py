@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def exercise_one():
+def excercise_one():
     N = 8        # Liczba próbek
     T = 2        # Okres sygnału s(t) = cos(pi*t) f = 0.5Hz, T = 1/f = 2
     fs = N / T   # Częstotliwość próbkowania (4 Hz)

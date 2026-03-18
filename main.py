@@ -2,11 +2,11 @@ import sys
 import ex1
 
 
-def main(exercise_number):
-    if exercise_number == 0:
+def main(excercise_number):
+    if excercise_number == 0:
         print(0)
-    elif exercise_number == 1:
-        ex1.exercise_one()
+    elif excercise_number == 1:
+        ex1.excercise_one()
     else:
         print("none")
 
