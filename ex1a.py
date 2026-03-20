@@ -57,4 +57,9 @@ def excercise_one_a():
     plt.grid(True)
 
     plt.tight_layout()
+    plt.savefig('1a_fft_analysis.png', dpi=300)
     plt.show()
+
+
+if __name__ == "__main__":
+    excercise_one_a()
