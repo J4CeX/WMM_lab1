@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import time
 
 
-def excercise_one_a():
+def exercise_one_a():
     N = 8        # Liczba próbek
     T = 2        # Okres sygnału s(t) = cos(pi*t) f = 0.5Hz, T = 1/f = 2
     fs = N / T   # Częstotliwość próbkowania (4 Hz)
@@ -63,7 +63,7 @@ def excercise_one_a():
     plt.show()
 
 
-def excercise_one_b():
+def exercise_one_b():
     # Dobór wartości N - od 2^10 do 2^21
     l_values = np.arange(10, 22)
     n_sizes = 2**l_values
@@ -106,7 +106,7 @@ def excercise_one_b():
     plt.show()
 
 
-def excercise_two(N=48, A=2):
+def exercise_two(N=48, A=2):
     n = np.arange(N)
     n0_values = [0, int(N/4), int(N/2), int(3*N/4)]
 
@@ -156,14 +156,14 @@ def excercise_two(N=48, A=2):
     plt.show()
 
 
-def excercise_three():
+def exercise_three():
+    # Parametry bazowe
     A = 3
     N = 10
-    n0_multipliers = [0, 1, 4, 9]  # Mnożniki dla N0 = {0, 1N, 4N, 9N}
+    n0_multipliers = [0, 1, 4, 9]  # Mnożniki dla N0 = {0, 10, 40, 90}
 
-    fig, axes = plt.subplots(len(n0_multipliers), 3, figsize=(15, 12))
-    fig.suptitle('Wpływ dopełniania zerami (Zero-Padding) na widmo',
-                 fontsize=16)
+    fig, axes = plt.subplots(len(n0_multipliers), 3, figsize=(15, 14))
+    fig.suptitle('Wpływ dopełniania zerami (Zero-Padding) na widmo - Próbkowanie dyskretne', fontsize=16)
 
     for i, mult in enumerate(n0_multipliers):
         N0 = mult * N
@@ -182,40 +182,32 @@ def excercise_three():
 
         amp = np.abs(Xk)
         phase = np.angle(Xk)
-        phase[amp < 1e-10] = 0  # Czyszczenie szumu
+        phase[amp < 1e-10] = 0 # Czyszczenie szumu fazowego
 
-        # Dziedzina czasu
-        axes[i, 0].stem(range(total_N), s_padded, linefmt='b', markerfmt='bo',
-                        basefmt=" ")
-        axes[i, 0].set_title(f'Sygnał (N0={N0}, Suma N={total_N})')
+        # Przesunięcie widma, aby 0 Hz było na środku
+        freqs_shifted = np.fft.fftshift(freqs)
+        amp_shifted = np.fft.fftshift(amp)
+        phase_shifted = np.fft.fftshift(phase)
+
+        axes[i, 0].stem(range(total_N), s_padded, linefmt='b-', markerfmt='bo', basefmt="k-")
+        axes[i, 0].set_title(f'Sygnał (Total N={total_N})')
         axes[i, 0].grid(True, alpha=0.3)
 
-        # Widmo amplitudowe
-        # Używamy plot zamiast stem dla dużych N, żeby widzieć "ciągłość"
-        if total_N > 20:
-            axes[i, 1].plot(np.fft.fftshift(freqs), np.fft.fftshift(amp), 'g-')
-        else:
-            axes[i, 1].stem(np.fft.fftshift(freqs), np.fft.fftshift(amp),
-                            linefmt='g', markerfmt='go', basefmt=" ")
-        axes[i, 1].set_title('Widmo amplitudowe')
+        axes[i, 1].stem(freqs_shifted, amp_shifted, linefmt='g-', markerfmt='go', basefmt="k-")
+        axes[i, 1].set_title(f'Widmo amplitudowe (próbki)')
         axes[i, 1].grid(True, alpha=0.3)
 
-        # Widmo fazowe
-        if total_N > 20:
-            axes[i, 2].plot(np.fft.fftshift(freqs), np.fft.fftshift(phase),
-                            'm-')
-        else:
-            axes[i, 2].stem(np.fft.fftshift(freqs), np.fft.fftshift(phase),
-                            linefmt='m', markerfmt='mo', basefmt=" ")
-        axes[i, 2].set_title('Widmo fazowe')
+        axes[i, 2].stem(freqs_shifted, phase_shifted, linefmt='m-', markerfmt='mo', basefmt="k-")
+        axes[i, 2].set_title(f'Widmo fazowe (próbki)')
+        axes[i, 2].set_ylim(-np.pi-0.5, np.pi+0.5)
         axes[i, 2].grid(True, alpha=0.3)
 
     plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-    plt.savefig('3_zero_padding_analysis.png', dpi=300)
+    plt.savefig('3_zero_padding_analisys.png', dpi=300)
     plt.show()
 
 
-def excercise_four():
+def exercise_four():
     fs = 48000  # Częstotliwość próbkowania [Hz]
     A1, f1 = 0.1, 3000
     A2, f2 = 0.4, 4000
@@ -271,25 +263,25 @@ def excercise_four():
     print(f"Rozdzielczość widmowa dla N2: {df2:.2f} Hz")
 
 
-def main(excercise):
-    if excercise == "1a":
-        excercise_one_a()
-    elif excercise == "1b":
-        excercise_one_b()
-    elif excercise == "2":
-        excercise_two()
-    elif excercise == "3":
-        excercise_three()
-    elif excercise == "4":
-        excercise_four()
-    elif excercise == "all":
-        excercise_one_a()
-        excercise_one_b()
-        excercise_two()
-        excercise_three()
-        excercise_four()
+def main(exercise):
+    if exercise == "1a":
+        exercise_one_a()
+    elif exercise == "1b":
+        exercise_one_b()
+    elif exercise == "2":
+        exercise_two()
+    elif exercise == "3":
+        exercise_three()
+    elif exercise == "4":
+        exercise_four()
+    elif exercise == "all":
+        exercise_one_a()
+        exercise_one_b()
+        exercise_two()
+        exercise_three()
+        exercise_four()
     else:
-        print("Excercises are: 1a, 1b, 2, 3, 4 or all")
+        print("Exercises are: 1a, 1b, 2, 3, 4 or all")
 
 
 if __name__ == "__main__":
