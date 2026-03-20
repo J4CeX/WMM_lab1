@@ -15,7 +15,7 @@ def main(excercise_number):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 1:
-        main(sys.argv[0])
+    if len(sys.argv) == 2:
+        main(int(sys.argv[1]))
     elif len(sys.argv) == 0:
         main()
