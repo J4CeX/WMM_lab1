@@ -59,7 +59,7 @@ def excercise_one_a():
     plt.grid(True)
 
     plt.tight_layout()
-    plt.savefig('./results/1a_fft_analysis.png', dpi=300)
+    plt.savefig('1a_fft_analysis.png', dpi=300)
     plt.show()
 
 
@@ -102,7 +102,7 @@ def excercise_one_b():
     plt.title('Złożoność obliczeniowa FFT w funkcji liczby próbek')
     plt.legend()
     plt.grid(True, which="both", ls="-", alpha=0.5)
-    plt.savefig('./results/1b_fft_complexity.png', dpi=300)
+    plt.savefig('1b_fft_complexity.png', dpi=300)
     plt.show()
 
 
@@ -152,7 +152,7 @@ def excercise_two(N=48, A=2):
         axes[i, 2].grid(True, alpha=0.3)
 
     plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-    plt.savefig('./results/2_time_shift_analysis.png', dpi=300)
+    plt.savefig('2_time_shift_analysis.png', dpi=300)
     plt.show()
 
 
@@ -211,7 +211,7 @@ def excercise_three():
         axes[i, 2].grid(True, alpha=0.3)
 
     plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-    plt.savefig('./results/3_zero_padding_analysis.png', dpi=300)
+    plt.savefig('3_zero_padding_analysis.png', dpi=300)
     plt.show()
 
 
@@ -253,7 +253,7 @@ def excercise_four():
         plt.ylabel("Moc")
         plt.grid(True)
         plt.xlim(0, 15)  # Skupiamy się na zakresie częstotliwości
-        plt.savefig(f'./results/4_psd_{title}.png', dpi=300)
+        plt.savefig(f'4_psd_{title}.png', dpi=300)
         plt.show()
 
         return power_time, N
