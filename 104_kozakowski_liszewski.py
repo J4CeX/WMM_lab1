@@ -111,8 +111,7 @@ def exercise_two(N=48, A=2):
     n0_values = [0, int(N/4), int(N/2), int(3*N/4)]
 
     fig, axes = plt.subplots(len(n0_values), 3, figsize=(15, 12))
-    fig.suptitle(f'Wpływ przesunięcia $n_0$ na widmo (N={N}, A={A})',
-                 fontsize=16)
+    fig.suptitle(f'Wpływ przesunięcia $n_0$ na widmo (N={N}, A={A})', fontsize=16)
 
     for i, n0 in enumerate(n0_values):
         # Generowanie sygnału i przesunięcie kołowe
@@ -128,27 +127,31 @@ def exercise_two(N=48, A=2):
         amp = np.abs(Xk)
         phase = np.angle(Xk)
 
-        # Tłumienie "szumu" fazowego dla prążków o zerowej amplitudzie
+        # Tłumienie szumu fazowego dla prążków o zerowej amplitudzie
         phase[amp < 1e-10] = 0
 
         # Dziedzina czasu
         axes[i, 0].stem(n, s_shifted, linefmt='b', markerfmt='bo', basefmt=" ")
         axes[i, 0].set_title(f'Sygnał $s(n - {n0})$')
-        axes[i, 1].set_ylabel('Amplituda')
+        axes[i, 0].set_xlabel('Numer próbki [n]')
+        axes[i, 0].set_ylabel('Amplituda')
         axes[i, 0].grid(True, alpha=0.3)
 
         # Widmo amplitudowe
         axes[i, 1].stem(freqs, amp, linefmt='g', markerfmt='go', basefmt=" ")
         axes[i, 1].set_title(f'Widmo amplitudowe (n0={n0})')
+        axes[i, 1].set_xlabel('Częstotliwość znormalizowana')
+        axes[i, 1].set_ylabel('Moduł |X(k)|')
         axes[i, 1].grid(True, alpha=0.3)
 
         # Widmo fazowe
         axes[i, 2].stem(freqs, phase, linefmt='m', markerfmt='mo', basefmt=" ")
         axes[i, 2].set_title(f'Widmo fazowe (n0={n0})')
+        axes[i, 2].set_xlabel('Częstotliwość znormalizowana')
+        axes[i, 2].set_ylabel('Faza [rad]')
         axes[i, 2].set_ylim(-np.pi-0.5, np.pi+0.5)
         axes[i, 2].set_yticks([-np.pi, -np.pi/2, 0, np.pi/2, np.pi])
-        axes[i, 2].set_yticklabels(['-$\pi$', '-$\pi$/2', '0',
-                                    '$\pi$/2', '$\pi$'])
+        axes[i, 2].set_yticklabels(['-$\pi$', '-$\pi$/2', '0', '$\pi$/2', '$\pi$'])
         axes[i, 2].grid(True, alpha=0.3)
 
     plt.tight_layout(rect=[0, 0.03, 1, 0.95])
@@ -189,21 +192,30 @@ def exercise_three():
         amp_shifted = np.fft.fftshift(amp)
         phase_shifted = np.fft.fftshift(phase)
 
+        # Dziedzina czasu
         axes[i, 0].stem(range(total_N), s_padded, linefmt='b-', markerfmt='bo', basefmt="k-")
         axes[i, 0].set_title(f'Sygnał (Total N={total_N})')
+        axes[i, 0].set_xlabel('Numer próbki [n]')
+        axes[i, 0].set_ylabel('Amplituda')
         axes[i, 0].grid(True, alpha=0.3)
 
+        # Widmo amplitudowe
         axes[i, 1].stem(freqs_shifted, amp_shifted, linefmt='g-', markerfmt='go', basefmt="k-")
         axes[i, 1].set_title(f'Widmo amplitudowe (próbki)')
+        axes[i, 1].set_xlabel('Częstotliwość znormalizowana')
+        axes[i, 1].set_ylabel('Moduł |X(k)|')
         axes[i, 1].grid(True, alpha=0.3)
 
+        # Widmo fazowe
         axes[i, 2].stem(freqs_shifted, phase_shifted, linefmt='m-', markerfmt='mo', basefmt="k-")
         axes[i, 2].set_title(f'Widmo fazowe (próbki)')
+        axes[i, 2].set_xlabel('Częstotliwość znormalizowana')
+        axes[i, 2].set_ylabel('Faza [rad]')
         axes[i, 2].set_ylim(-np.pi-0.5, np.pi+0.5)
         axes[i, 2].grid(True, alpha=0.3)
 
     plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-    plt.savefig('3_zero_padding_analisys.png', dpi=300)
+    plt.savefig('3_zero_padding_analysis.png', dpi=300)
     plt.show()
 
 
